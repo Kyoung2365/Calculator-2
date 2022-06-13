@@ -29,6 +29,19 @@ enum event_ids {
 	ID_MOD_BUTTON
 };
 
+wxBEGIN_EVENT_TABLE(Screen, wxFrame)
+EVT_BUTTON(ID_0_BUTTON, Screen::OnButtonClick)
+EVT_BUTTON(ID_1_BUTTON, Screen::OnButtonClick)
+EVT_BUTTON(ID_2_BUTTON, Screen::OnButtonClick)
+EVT_BUTTON(ID_3_BUTTON, Screen::OnButtonClick)
+EVT_BUTTON(ID_4_BUTTON, Screen::OnButtonClick)
+EVT_BUTTON(ID_5_BUTTON, Screen::OnButtonClick)
+EVT_BUTTON(ID_6_BUTTON, Screen::OnButtonClick)
+EVT_BUTTON(ID_7_BUTTON, Screen::OnButtonClick)
+EVT_BUTTON(ID_8_BUTTON, Screen::OnButtonClick)
+EVT_BUTTON(ID_9_BUTTON, Screen::OnButtonClick)
+wxEND_EVENT_TABLE()
+
 Screen::Screen() : wxFrame(nullptr, wxID_ANY, "Calculator", wxPoint(100, 100), wxSize(500, 500),
 	wxCLOSE_BOX | wxCAPTION) {
 
@@ -96,7 +109,11 @@ Screen::Screen() : wxFrame(nullptr, wxID_ANY, "Calculator", wxPoint(100, 100), w
 
 	SetSizerAndFit(topSizer);
 }
-
+void Screen::OnButtonClick(wxCommandEvent& evt) {
+	wxString id = wxString::Format(wxT("%d"), evt.GetId());
+	id.Append(wxString(""));
+	Display->AppendText(id);
+}
 Screen::~Screen() {
 
 }

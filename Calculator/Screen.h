@@ -22,5 +22,10 @@ private:
 public:
 	Screen();
 	~Screen();
+
+	void OnButtonClick(wxCommandEvent& ext);
+	void SignButtonClick(wxCommandEvent&);
+
+	wxDECLARE_EVENT_TABLE();
 };
 
