@@ -26,6 +26,6 @@ public:
 	void OnButtonClick(wxCommandEvent& ext);
 	void SignButtonClick(wxCommandEvent&);
 
-	wxDECLARE_EVENT_TABLE();
+	/*wxDECLARE_EVENT_TABLE();*/
 };
 
