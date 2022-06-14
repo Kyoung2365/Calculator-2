@@ -1,33 +1,5 @@
 #include "Screen.h"
-#include "Calc.h"
-
-const int OP_OFFSET = 1024;
-
-enum event_ids {
-	ID_0_BUTTON = 0,
-	ID_1_BUTTON = 1,
-	ID_2_BUTTON = 2,
-	ID_3_BUTTON = 3,
-	ID_4_BUTTON = 4,
-	ID_5_BUTTON = 5,
-	ID_6_BUTTON = 6,
-	ID_7_BUTTON = 7,
-	ID_8_BUTTON = 8,
-	ID_9_BUTTON = 9,
-
-	ID_DECI_BUTTON,
-	ID_SIGN_BUTTON,
-	ID_ADD_BUTTON = OP_OFFSET + Calc::OP_ADD,
-	ID_SUB_BUTTON = OP_OFFSET + Calc::OP_SUB,
-	ID_MUL_BUTTON = OP_OFFSET + Calc::OP_MUL,
-	ID_DIV_BUTTON = OP_OFFSET + Calc::OP_DIV,
-	ID_CLR_BUTTON,
-	ID_EQUAL_BUTTON,
-	ID_HEX_BUTTON,
-	ID_BIN_BUTTON,
-	ID_DEC_BUTTON,
-	ID_MOD_BUTTON
-};
+#include "ButtonFactory.h"
 
 wxBEGIN_EVENT_TABLE(Screen, wxFrame)
 EVT_BUTTON(ID_0_BUTTON, Screen::OnButtonClick)
@@ -52,7 +24,56 @@ EVT_BUTTON(ID_HEX_BUTTON, Screen::SignButtonClick)
 EVT_BUTTON(ID_BIN_BUTTON, Screen::SignButtonClick)
 EVT_BUTTON(ID_DEC_BUTTON, Screen::SignButtonClick)
 EVT_BUTTON(ID_MOD_BUTTON, Screen::SignButtonClick)
-wxEND_EVENT_TABLE()
+wxEND_EVENT_TABLE();
+
+void Screen::OnButtonClick(wxCommandEvent& evt) {
+	wxString id = wxString::Format(wxT("%d"), evt.GetId());
+	id.Append(wxString(""));
+	Display->AppendText(id);
+}
+
+void Screen::SignButtonClick(wxCommandEvent& evt) {
+	int id = evt.GetId();
+	switch (id) {
+	case ID_ADD_BUTTON:
+		Display->AppendText("+");
+		break;
+	case ID_SUB_BUTTON:
+		Display->AppendText("-");
+		break;
+	case ID_MUL_BUTTON:
+		Display->AppendText("*");
+		break;
+	case ID_DIV_BUTTON:
+		Display->AppendText("/");
+		break;
+	case ID_DECI_BUTTON:
+		Display->AppendText(".");
+		break;
+	case ID_SIGN_BUTTON:
+		Display->AppendText("-");
+		break;
+	case ID_EQUAL_BUTTON:
+		Display->AppendText("=");
+		break;
+	case ID_CLR_BUTTON:
+		Display->AppendText("CLR");
+		break;
+	case ID_HEX_BUTTON:
+		Display->AppendText("HEX");
+		break;
+	case ID_BIN_BUTTON:
+		Display->AppendText("BIN");
+		break;
+	case ID_DEC_BUTTON:
+		Display->AppendText("DEC");
+		break;
+	case ID_MOD_BUTTON:
+		Display->AppendText("MOD");
+		break;
+	}
+}
+
 
 Screen::Screen() : wxFrame(nullptr, wxID_ANY, "Calculator", wxPoint(100, 100), wxSize(500, 500),
 	wxCLOSE_BOX | wxCAPTION) {
@@ -72,6 +93,7 @@ Screen::Screen() : wxFrame(nullptr, wxID_ANY, "Calculator", wxPoint(100, 100), w
 		numButtons[num] = new wxButton(this, num, std::to_string(num),
 			wxDefaultPosition, buttonSize);
 	}
+	
 	addButton = new wxButton(this, ID_ADD_BUTTON, "+", wxDefaultPosition, buttonSize);
 	subButton = new wxButton(this, ID_SUB_BUTTON, "-", wxDefaultPosition, buttonSize);
 	multButton = new wxButton(this, ID_MUL_BUTTON, "x", wxDefaultPosition, buttonSize);
@@ -122,53 +144,7 @@ Screen::Screen() : wxFrame(nullptr, wxID_ANY, "Calculator", wxPoint(100, 100), w
 	SetSizerAndFit(topSizer);
 }
 
-void Screen::OnButtonClick(wxCommandEvent& evt) {
-	wxString id = wxString::Format(wxT("%d"), evt.GetId());
-	id.Append(wxString(""));
-	Display->AppendText(id);
-}
 
-void Screen::SignButtonClick(wxCommandEvent& evt) {
-	int id = evt.GetId();
-	switch (id) {
-	case ID_ADD_BUTTON:
-		Display->AppendText("+");
-		break;
-	case ID_SUB_BUTTON:
-		Display->AppendText("-");
-		break;
-	case ID_MUL_BUTTON:
-		Display->AppendText("*");
-		break;
-	case ID_DIV_BUTTON:
-		Display->AppendText("/");
-		break;
-	case ID_DECI_BUTTON:
-		Display->AppendText(".");
-		break;
-	case ID_SIGN_BUTTON:
-		Display->AppendText("-");
-		break;
-	case ID_EQUAL_BUTTON:
-		Display->AppendText("=");
-		break;
-	case ID_CLR_BUTTON:
-		Display->AppendText("CLR");
-		break;
-	case ID_HEX_BUTTON:
-		Display->AppendText("HEX");
-		break;
-	case ID_BIN_BUTTON:
-		Display->AppendText("BIN");
-		break;
-	case ID_DEC_BUTTON:
-		Display->AppendText("DEC");
-		break;
-	case ID_MOD_BUTTON:
-		Display->AppendText("MOD");
-		break;
-	}
-}
 Screen::~Screen() {
 
 }
