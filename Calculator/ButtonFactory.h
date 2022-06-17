@@ -33,8 +33,6 @@ enum Button {
 
 class ButtonFactory : public wxWindow
 {
-private:
-	Screen* screen;
 public:
     wxButton* CreateNumButton(Screen* screen, int num, wxSize& size);
 	wxButton* CreateAddButton(Screen* screen, wxSize& size);
