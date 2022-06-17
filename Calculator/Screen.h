@@ -23,8 +23,8 @@ public:
 	Screen();
 	~Screen();
 
-	void OnButtonClick(wxCommandEvent& ext);
-	void SignButtonClick(wxCommandEvent&);
+	void OnButtonClick(wxCommandEvent& evt);
+	void SignButtonClick(wxCommandEvent& evt);
 
 	wxDECLARE_EVENT_TABLE();
 };

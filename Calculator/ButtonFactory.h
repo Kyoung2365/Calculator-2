@@ -1,10 +1,11 @@
 #pragma once
 #include "wx/wx.h"
 #include "Calc.h"
+#include "Screen.h"
 
 const int OP_OFFSET = 1024;
 
-enum Buttons {
+enum Button {
 	ID_0_BUTTON = 0,
 	ID_1_BUTTON = 1,
 	ID_2_BUTTON = 2,
@@ -30,10 +31,24 @@ enum Buttons {
 	ID_MOD_BUTTON
 };
 
-class ButtonFactory : public wxFrame
+class ButtonFactory : public wxWindow
 {
 private:
-	ButtonFactory* CreateButton(Buttons id);
+	Screen* screen;
+public:
+    wxButton* CreateNumButton(Screen* screen, int num, wxSize& size);
+	wxButton* CreateAddButton(Screen* screen, wxSize& size);
+	wxButton* CreateSubButton(Screen* screen, wxSize& size);
+	wxButton* CreateMultButton(Screen* screen, wxSize& size);
+	wxButton* CreateDivButton(Screen* screen, wxSize& size);
+	wxButton* CreateClrButton(Screen* screen, wxSize& size);
+	wxButton* CreateEqualsButton(Screen* screen, wxSize& size);
+	wxButton* CreateDeciButton(Screen* screen, wxSize& size);
+	wxButton* CreateSignButton(Screen* screen, wxSize& size);
+	wxButton* CreateHexButton(Screen* screen, wxSize& size);
+	wxButton* CreateBinButton(Screen* screen, wxSize& size);
+	wxButton* CreateDecButton(Screen* screen, wxSize& size);
+	wxButton* CreateModButton(Screen* screen, wxSize& size);
 };
 
 

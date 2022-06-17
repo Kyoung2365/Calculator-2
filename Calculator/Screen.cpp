@@ -74,7 +74,6 @@ void Screen::SignButtonClick(wxCommandEvent& evt) {
 	}
 }
 
-
 Screen::Screen() : wxFrame(nullptr, wxID_ANY, "Calculator", wxPoint(100, 100), wxSize(500, 500),
 	wxCLOSE_BOX | wxCAPTION) {
 
@@ -89,25 +88,25 @@ Screen::Screen() : wxFrame(nullptr, wxID_ANY, "Calculator", wxPoint(100, 100), w
 	wxGridSizer* grid = new wxGridSizer(4, 0, 0);
 	wxSize buttonSize(64, 64);
 	numButtons.resize(10);
-	for (int num = 0; num < 10; ++num) {
-		numButtons[num] = new wxButton(this, num, std::to_string(num),
-			wxDefaultPosition, buttonSize);
+
+	ButtonFactory Button;
+
+	for (int num = 0; num < 10; num++) {
+		numButtons[num] = Button.CreateNumButton(this, num, buttonSize);
 	}
-	
-	addButton = new wxButton(this, ID_ADD_BUTTON, "+", wxDefaultPosition, buttonSize);
-	subButton = new wxButton(this, ID_SUB_BUTTON, "-", wxDefaultPosition, buttonSize);
-	multButton = new wxButton(this, ID_MUL_BUTTON, "x", wxDefaultPosition, buttonSize);
-	divButton = new wxButton(this, ID_DIV_BUTTON, "/", wxDefaultPosition, buttonSize);
 
-	clrButton = new wxButton(this, ID_CLR_BUTTON, "C", wxDefaultPosition, buttonSize);
-	equalsButton = new wxButton(this, ID_EQUAL_BUTTON, "=", wxDefaultPosition, buttonSize);
-
-	deciButton = new wxButton(this, ID_DECI_BUTTON, ".", wxDefaultPosition, buttonSize);
-	signButton = new wxButton(this, ID_SIGN_BUTTON, "+/-", wxDefaultPosition, buttonSize);
-	hexButton = new wxButton(this, ID_HEX_BUTTON, "HEX", wxDefaultPosition, buttonSize);
-	binButton = new wxButton(this, ID_BIN_BUTTON, "BIN", wxDefaultPosition, buttonSize);
-	decButton = new wxButton(this, ID_DEC_BUTTON, "DEC", wxDefaultPosition, buttonSize);
-	modButton = new wxButton(this, ID_MOD_BUTTON, "MOD", wxDefaultPosition, buttonSize);
+	addButton = Button.CreateAddButton(this, buttonSize);
+	subButton = Button.CreateSubButton(this, buttonSize);
+	multButton = Button.CreateMultButton(this, buttonSize);
+	divButton = Button.CreateDivButton(this, buttonSize);
+	clrButton = Button.CreateClrButton(this, buttonSize);
+	equalsButton = Button.CreateEqualsButton(this, buttonSize);
+	deciButton = Button.CreateDeciButton(this, buttonSize);
+	signButton = Button.CreateSignButton(this, buttonSize);
+	hexButton = Button.CreateHexButton(this, buttonSize);
+	binButton = Button.CreateBinButton(this, buttonSize);
+	decButton = Button.CreateDecButton(this, buttonSize);
+	modButton = Button.CreateModButton(this, buttonSize);
 
 	grid->Add(hexButton, 1, wxEXPAND, 0);
 	grid->Add(binButton, 1, wxEXPAND, 0);
@@ -132,8 +131,6 @@ Screen::Screen() : wxFrame(nullptr, wxID_ANY, "Calculator", wxPoint(100, 100), w
 	grid->Add(deciButton, 1, wxEXPAND, 0);
 	grid->Add(addButton, 1, wxEXPAND, 0);
 
-
-
 	grid->AddStretchSpacer();
 	grid->AddStretchSpacer();
 	grid->Add(clrButton, 1, wxEXPAND, 0);
@@ -143,7 +140,6 @@ Screen::Screen() : wxFrame(nullptr, wxID_ANY, "Calculator", wxPoint(100, 100), w
 
 	SetSizerAndFit(topSizer);
 }
-
 
 Screen::~Screen() {
 
