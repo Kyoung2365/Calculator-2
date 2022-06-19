@@ -1,5 +1,6 @@
 #include "Screen.h"
 #include "ButtonFactory.h"
+#include "CalculatorProcessor.h"
 
 wxBEGIN_EVENT_TABLE(Screen, wxFrame)
 EVT_BUTTON(ID_0_BUTTON, Screen::OnButtonClick)
@@ -26,10 +27,12 @@ EVT_BUTTON(ID_DEC_BUTTON, Screen::SignButtonClick)
 EVT_BUTTON(ID_MOD_BUTTON, Screen::SignButtonClick)
 wxEND_EVENT_TABLE();
 
+CalculatorProcessor* processor = CalculatorProcessor::GetInstance();
+
 void Screen::OnButtonClick(wxCommandEvent& evt) {
-	wxString id = wxString::Format(wxT("%d"), evt.GetId());
-	id.Append(wxString(""));
-	Display->AppendText(id);
+	int id = evt.GetId();
+	Display->AppendText(std::to_string(id));
+	processor->SetBaseNumber(id);
 }
 
 void Screen::SignButtonClick(wxCommandEvent& evt) {
@@ -54,19 +57,25 @@ void Screen::SignButtonClick(wxCommandEvent& evt) {
 		Display->AppendText("-");
 		break;
 	case ID_EQUAL_BUTTON:
-		Display->AppendText("=");
+		//Display->AppendText("=");
+		//Display->SetValue(processor->GetEquals());
+		Display->SetValue(processor->GetEquals());
 		break;
 	case ID_CLR_BUTTON:
-		Display->AppendText("CLR");
+		//Display->AppendText("CLR");
+		Display->Clear();
 		break;
 	case ID_HEX_BUTTON:
-		Display->AppendText("HEX");
+		//Display->AppendText("HEX");
+		Display->SetValue(processor->GetHexdecimal());
 		break;
 	case ID_BIN_BUTTON:
-		Display->AppendText("BIN");
+		//Display->AppendText("BIN");
+		Display->SetValue(processor->GetBinary());
 		break;
 	case ID_DEC_BUTTON:
-		Display->AppendText("DEC");
+		//Display->AppendText("DEC");
+		Display->SetValue(processor->GetDecimal());
 		break;
 	case ID_MOD_BUTTON:
 		Display->AppendText("MOD");
