@@ -27,7 +27,7 @@ public:
 	int GetMult();
 	int GetDiv();
 
-	std::string GetEquals();
+	char GetEquals();
 };
 
 

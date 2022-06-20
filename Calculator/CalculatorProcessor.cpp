@@ -72,22 +72,24 @@ int CalculatorProcessor::GetMod() {
 	return result;
 }
 
-std::string CalculatorProcessor::GetEquals() {
-	std::string op = "";
-	if (op == "+") {
+char CalculatorProcessor::GetEquals() {
+	char op = ' ';
+	switch (op) {
+	case '+':
 		GetAdd();
-	}
-	else if (op == "-") {
+		break;
+	case '-':
 		GetSub();
-	}
-	else if (op == "*") {
+		break;
+	case '*':
 		GetMult();
-	}
-	else if (op == "/") {
+		break;
+	case '/':
 		GetDiv();
-	}
-	else if (op == "MOD") {
+		break;
+	case '%':
 		GetMod();
+		break;
 	}
 	return op;
 }

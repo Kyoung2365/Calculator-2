@@ -32,7 +32,10 @@ CalculatorProcessor* processor = CalculatorProcessor::GetInstance();
 void Screen::OnButtonClick(wxCommandEvent& evt) {
 	int id = evt.GetId();
 	Display->AppendText(std::to_string(id));
-	processor->SetBaseNumber(id);
+	wxString display = Display->GetValue();
+	int id2;
+	display.ToInt(&id2);
+	processor->SetBaseNumber(id2);
 }
 
 void Screen::SignButtonClick(wxCommandEvent& evt) {
@@ -58,7 +61,6 @@ void Screen::SignButtonClick(wxCommandEvent& evt) {
 		break;
 	case ID_EQUAL_BUTTON:
 		//Display->AppendText("=");
-		//Display->SetValue(processor->GetEquals());
 		Display->SetValue(processor->GetEquals());
 		break;
 	case ID_CLR_BUTTON:
@@ -78,7 +80,7 @@ void Screen::SignButtonClick(wxCommandEvent& evt) {
 		Display->SetValue(processor->GetDecimal());
 		break;
 	case ID_MOD_BUTTON:
-		Display->AppendText("MOD");
+		Display->AppendText("%");
 		break;
 	}
 }
