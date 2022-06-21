@@ -1,5 +1,6 @@
 #pragma once
 #include "wx/wx.h"
+#include "ButtonFactory.h"
 #include<string>
 
 class CalculatorProcessor
@@ -8,11 +9,11 @@ private:
 	CalculatorProcessor() {}
 	static CalculatorProcessor* _calcProcessor;
 	int baseNumber = 0;
-	int x = 0;
-	int y = 0;
+	int Operator;
 public:
 	static CalculatorProcessor* GetInstance();
-	void SetBaseNumber(int number);
+	void SetBaseNumber(int _number);
+	void SetOperator(int _operator);
 
 	CalculatorProcessor(CalculatorProcessor& other) = delete;
 	void operator=(const CalculatorProcessor& other) = delete;
@@ -20,14 +21,15 @@ public:
 	std::string GetHexdecimal();
 	std::string GetBinary();
 	std::string GetDecimal();
-	int GetMod();
+	
 
 	int GetAdd();
 	int GetSub();
 	int GetMult();
 	int GetDiv();
+	int GetMod();
 
-	char GetEquals();
+	std::string GetEquals();
 };
 
 

@@ -32,10 +32,8 @@ CalculatorProcessor* processor = CalculatorProcessor::GetInstance();
 void Screen::OnButtonClick(wxCommandEvent& evt) {
 	int id = evt.GetId();
 	Display->AppendText(std::to_string(id));
-	wxString display = Display->GetValue();
-	int id2;
-	display.ToInt(&id2);
-	processor->SetBaseNumber(id2);
+	Display->GetValue().ToInt(&id);
+	processor->SetBaseNumber(id);
 }
 
 void Screen::SignButtonClick(wxCommandEvent& evt) {
@@ -43,15 +41,19 @@ void Screen::SignButtonClick(wxCommandEvent& evt) {
 	switch (id) {
 	case ID_ADD_BUTTON:
 		Display->AppendText("+");
+		processor->SetOperator(id);
 		break;
 	case ID_SUB_BUTTON:
 		Display->AppendText("-");
+		processor->SetOperator(id);
 		break;
 	case ID_MUL_BUTTON:
 		Display->AppendText("*");
+		processor->SetOperator(id);
 		break;
 	case ID_DIV_BUTTON:
 		Display->AppendText("/");
+		processor->SetOperator(id);
 		break;
 	case ID_DECI_BUTTON:
 		Display->AppendText(".");
@@ -60,27 +62,23 @@ void Screen::SignButtonClick(wxCommandEvent& evt) {
 		Display->AppendText("-");
 		break;
 	case ID_EQUAL_BUTTON:
-		//Display->AppendText("=");
 		Display->SetValue(processor->GetEquals());
 		break;
 	case ID_CLR_BUTTON:
-		//Display->AppendText("CLR");
 		Display->Clear();
 		break;
 	case ID_HEX_BUTTON:
-		//Display->AppendText("HEX");
 		Display->SetValue(processor->GetHexdecimal());
 		break;
 	case ID_BIN_BUTTON:
-		//Display->AppendText("BIN");
 		Display->SetValue(processor->GetBinary());
 		break;
 	case ID_DEC_BUTTON:
-		//Display->AppendText("DEC");
 		Display->SetValue(processor->GetDecimal());
 		break;
 	case ID_MOD_BUTTON:
-		Display->AppendText("%");
+		Display->AppendText("MOD");
+		processor->SetOperator(id);
 		break;
 	}
 }
