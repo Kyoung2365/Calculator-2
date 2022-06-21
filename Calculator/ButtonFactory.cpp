@@ -34,7 +34,7 @@
  }
 
  wxButton* ButtonFactory::CreateSignButton(Screen* screen, wxSize& size) {
-	 return new wxButton(screen, ID_SIGN_BUTTON, "-", wxDefaultPosition, size);
+	 return new wxButton(screen, ID_SIGN_BUTTON, "+/-", wxDefaultPosition, size);
  }
 
  wxButton* ButtonFactory::CreateHexButton(Screen* screen, wxSize& size) {

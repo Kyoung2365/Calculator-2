@@ -93,20 +93,20 @@ std::string CalculatorProcessor::GetEquals() {
 	return std::to_string(result);
 }
 
-int CalculatorProcessor::GetAdd() {
-	return baseNumber + baseNumber;
+double CalculatorProcessor::GetAdd() {
+	return left + right;
 }
 
-int CalculatorProcessor::GetSub() {
-	return baseNumber - baseNumber;
+double CalculatorProcessor::GetSub() {
+	return left - right;
 }
 
-int CalculatorProcessor::GetMult() {
-	return baseNumber * baseNumber;
+double CalculatorProcessor::GetMult() {
+	return left * right;
 }
 
-int CalculatorProcessor::GetDiv() {
-	return baseNumber / baseNumber;
+double CalculatorProcessor::GetDiv() {
+	return left / right;
 }
 
 int CalculatorProcessor::GetMod() {
@@ -114,8 +114,8 @@ int CalculatorProcessor::GetMod() {
 }
 
 void CalculatorProcessor::Execute() {
+	GetDiv();
+	GetMult();
 	GetAdd();
 	GetSub();
-	GetMult();
-	GetDiv();
 }

@@ -11,6 +11,7 @@ private:
 	CalculatorProcessor() {}
 	static CalculatorProcessor* _calcProcessor;
 	int baseNumber = 0;
+	double left, right;
 	int Operator;
 public:
 	static CalculatorProcessor* GetInstance();
@@ -25,10 +26,10 @@ public:
 	std::string GetDecimal();
 	
 
-	int GetAdd();
-	int GetSub();
-	int GetMult();
-	int GetDiv();
+	double GetAdd();
+	double GetSub();
+	double GetMult();
+	double GetDiv();
 	int GetMod();
 
 	std::string GetEquals();

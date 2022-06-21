@@ -29,11 +29,37 @@ wxEND_EVENT_TABLE();
 
 CalculatorProcessor* processor = CalculatorProcessor::GetInstance();
 
+void Screen::DisplayUpdate() {
+	std::string numStr("");
+	if (!positive) {
+		numStr += "-";
+	}
+
+	numStr += preDecimal;
+	if (decimal) {
+		numStr += "." + postDecimal;
+	}
+	Display->SetValue(numStr);
+}
+
+void Screen::Clear() {
+	preDecimal.assign("");
+	postDecimal.assign("");
+	decimal = false;
+	positive = true;
+}
+
 void Screen::OnButtonClick(wxCommandEvent& evt) {
 	int id = evt.GetId();
 	Display->AppendText(std::to_string(id));
 	Display->GetValue().ToInt(&id);
 	processor->SetBaseNumber(id);
+	if (!decimal) {
+		preDecimal += std::to_string(id);
+	}
+	else {
+		postDecimal += std::to_string(id);
+	}
 }
 
 void Screen::SignButtonClick(wxCommandEvent& evt) {
@@ -54,16 +80,25 @@ void Screen::SignButtonClick(wxCommandEvent& evt) {
 		Display->AppendText("/");
 		break;
 	case ID_DECI_BUTTON:
-		Display->AppendText(".");
+		decimal = true;
+		entryMode = true;
+		DisplayUpdate();
 		break;
 	case ID_SIGN_BUTTON:
-		Display->AppendText("-");
+		positive = !positive;
+		entryMode = true;
+		DisplayUpdate();
 		break;
 	case ID_EQUAL_BUTTON:
+		if (entryMode) {
+			entryMode = false;
+		}
 		Display->SetValue(processor->GetEquals());
 		break;
 	case ID_CLR_BUTTON:
-		Display->Clear();
+		entryMode = true;
+		Clear();
+		DisplayUpdate();
 		break;
 	case ID_HEX_BUTTON:
 		Display->SetValue(processor->GetHexdecimal());
