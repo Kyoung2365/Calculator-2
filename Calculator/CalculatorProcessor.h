@@ -1,9 +1,11 @@
 #pragma once
 #include "wx/wx.h"
 #include "ButtonFactory.h"
+#include "IBaseCommand.h"
 #include<string>
 
-class CalculatorProcessor
+
+class CalculatorProcessor : public IBaseCommand
 {
 private:
 	CalculatorProcessor() {}
@@ -30,6 +32,7 @@ public:
 	int GetMod();
 
 	std::string GetEquals();
+	void Execute();
 };
 
 

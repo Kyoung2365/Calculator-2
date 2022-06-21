@@ -38,6 +38,7 @@ void Screen::OnButtonClick(wxCommandEvent& evt) {
 
 void Screen::SignButtonClick(wxCommandEvent& evt) {
 	int id = evt.GetId();
+	int num = 0;
 	switch (id) {
 	case ID_ADD_BUTTON:
 		Display->AppendText("+");
@@ -45,15 +46,12 @@ void Screen::SignButtonClick(wxCommandEvent& evt) {
 		break;
 	case ID_SUB_BUTTON:
 		Display->AppendText("-");
-		processor->SetOperator(id);
 		break;
 	case ID_MUL_BUTTON:
 		Display->AppendText("*");
-		processor->SetOperator(id);
 		break;
 	case ID_DIV_BUTTON:
 		Display->AppendText("/");
-		processor->SetOperator(id);
 		break;
 	case ID_DECI_BUTTON:
 		Display->AppendText(".");
