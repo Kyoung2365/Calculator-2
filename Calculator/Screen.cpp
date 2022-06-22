@@ -28,6 +28,8 @@ EVT_BUTTON(ID_MOD_BUTTON, Screen::SignButtonClick)
 wxEND_EVENT_TABLE();
 
 CalculatorProcessor* processor = CalculatorProcessor::GetInstance();
+std::vector<CalculatorProcessor*> values;
+std::vector<CalculatorProcessor*> command;
 
 void Screen::DisplayUpdate() {
 	std::string numStr("");
@@ -53,13 +55,14 @@ void Screen::OnButtonClick(wxCommandEvent& evt) {
 	int id = evt.GetId();
 	Display->AppendText(std::to_string(id));
 	Display->GetValue().ToInt(&id);
-	processor->SetBaseNumber(id);
 	if (!decimal) {
 		preDecimal += std::to_string(id);
 	}
 	else {
 		postDecimal += std::to_string(id);
 	}
+	processor->SetBaseNumber(id);
+	values.push_back(processor);
 }
 
 void Screen::SignButtonClick(wxCommandEvent& evt) {
@@ -72,12 +75,15 @@ void Screen::SignButtonClick(wxCommandEvent& evt) {
 		break;
 	case ID_SUB_BUTTON:
 		Display->AppendText("-");
+		processor->SetOperator(id);
 		break;
 	case ID_MUL_BUTTON:
 		Display->AppendText("*");
+		processor->SetOperator(id);
 		break;
 	case ID_DIV_BUTTON:
 		Display->AppendText("/");
+		processor->SetOperator(id);
 		break;
 	case ID_DECI_BUTTON:
 		decimal = true;
@@ -93,6 +99,7 @@ void Screen::SignButtonClick(wxCommandEvent& evt) {
 		if (entryMode) {
 			entryMode = false;
 		}
+		Display->GetValue();
 		Display->SetValue(processor->GetEquals());
 		break;
 	case ID_CLR_BUTTON:

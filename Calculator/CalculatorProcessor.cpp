@@ -73,40 +73,41 @@ std::string CalculatorProcessor::GetDecimal() {
 std::string CalculatorProcessor::GetEquals() {
 	int result = 0;
 	int sign = Operator;
+	sign = sign - OP_OFFSET;
 	switch (sign) {
-	case 1024:
+	case 0:
 		result = GetAdd();
 		break;
-	case 1025:
+	case 1:
 		result = GetSub();
 		break;
-	case 1026:
+	case 2:
 		result = GetMult();
 		break;
-	case 1027:
+	case 3:
 		result = GetDiv();
 		break;
-	case 1033:
+	case 4:
 		result = GetMod();
 		break;
 	}	
 	return std::to_string(result);
 }
 
-double CalculatorProcessor::GetAdd() {
-	return left + right;
+int CalculatorProcessor::GetAdd() {
+	return baseNumber + baseNumber;
 }
 
-double CalculatorProcessor::GetSub() {
-	return left - right;
+int CalculatorProcessor::GetSub() {
+	return baseNumber - baseNumber;
 }
 
-double CalculatorProcessor::GetMult() {
-	return left * right;
+int CalculatorProcessor::GetMult() {
+	return baseNumber * baseNumber;
 }
 
-double CalculatorProcessor::GetDiv() {
-	return left / right;
+int CalculatorProcessor::GetDiv() {
+	return baseNumber / baseNumber;
 }
 
 int CalculatorProcessor::GetMod() {
