@@ -28,7 +28,6 @@ EVT_BUTTON(ID_MOD_BUTTON, Screen::SignButtonClick)
 wxEND_EVENT_TABLE();
 
 CalculatorProcessor* processor = CalculatorProcessor::GetInstance();
-std::vector<CalculatorProcessor*> values;
 std::vector<CalculatorProcessor*> command;
 
 void Screen::DisplayUpdate() {
@@ -62,7 +61,6 @@ void Screen::OnButtonClick(wxCommandEvent& evt) {
 		postDecimal += std::to_string(id);
 	}
 	processor->SetBaseNumber(id);
-	values.push_back(processor);
 }
 
 void Screen::SignButtonClick(wxCommandEvent& evt) {
@@ -99,7 +97,6 @@ void Screen::SignButtonClick(wxCommandEvent& evt) {
 		if (entryMode) {
 			entryMode = false;
 		}
-		Display->GetValue();
 		Display->SetValue(processor->GetEquals());
 		break;
 	case ID_CLR_BUTTON:
