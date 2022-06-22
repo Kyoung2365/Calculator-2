@@ -15,6 +15,11 @@ void CalculatorProcessor::SetBaseNumber(int _number) {
 	baseNumber = _number;
 }
 
+void CalculatorProcessor::SetValue(int x, int y) {
+	_valueX = x;
+	_valueY = y;
+}
+
 void CalculatorProcessor::SetOperator(int _operator) {
 	Operator = _operator;
 }
@@ -95,28 +100,21 @@ std::string CalculatorProcessor::GetEquals() {
 }
 
 int CalculatorProcessor::GetAdd() {
-	return baseNumber + baseNumber;
+	return _valueX + _valueY;
 }
 
 int CalculatorProcessor::GetSub() {
-	return baseNumber - baseNumber;
+	return _valueX - _valueY;
 }
 
 int CalculatorProcessor::GetMult() {
-	return baseNumber * baseNumber;
+	return _valueX * _valueY;
 }
 
 int CalculatorProcessor::GetDiv() {
-	return baseNumber / baseNumber;
+	return _valueX / _valueY;
 }
 
 int CalculatorProcessor::GetMod() {
-	return baseNumber % baseNumber;
-}
-
-void CalculatorProcessor::Execute() {
-	GetDiv();
-	GetMult();
-	GetAdd();
-	GetSub();
+	return _valueX % _valueY;
 }

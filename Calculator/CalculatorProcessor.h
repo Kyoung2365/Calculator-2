@@ -5,16 +5,19 @@
 #include<string>
 
 
-class CalculatorProcessor : public IBaseCommand
+class CalculatorProcessor
 {
 private:
-	CalculatorProcessor() {}
 	static CalculatorProcessor* _calcProcessor;
 	int baseNumber = 0;
+	int _valueX = 0;
+	int _valueY = 0;
 	int Operator;
 public:
+	CalculatorProcessor() {}
 	static CalculatorProcessor* GetInstance();
 	void SetBaseNumber(int _number);
+	void SetValue(int x, int y);
 	void SetOperator(int _operator);
 
 	CalculatorProcessor(CalculatorProcessor& other) = delete;
@@ -32,7 +35,6 @@ public:
 	int GetMod();
 
 	std::string GetEquals();
-	void Execute();
 };
 
 
