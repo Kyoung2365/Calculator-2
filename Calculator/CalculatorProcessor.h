@@ -9,10 +9,10 @@ class CalculatorProcessor
 {
 private:
 	static CalculatorProcessor* _calcProcessor;
-	int baseNumber = 0;
+	int Operator;
 	int _valueX = 0;
 	int _valueY = 0;
-	int Operator;
+	int baseNumber = 0;
 public:
 	CalculatorProcessor() {}
 	static CalculatorProcessor* GetInstance();

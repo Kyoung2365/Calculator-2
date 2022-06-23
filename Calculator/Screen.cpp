@@ -33,7 +33,8 @@ wxEND_EVENT_TABLE();
 
 CalculatorProcessor* processor = CalculatorProcessor::GetInstance();
 std::vector<IBaseCommand*> command;
-CalculatorProcessor value;
+
+int x = 0, y = 0;
 
 void Screen::DisplayUpdate() {
 	std::string numStr("");
@@ -55,7 +56,12 @@ void Screen::Clear() {
 	positive = true;
 }
 
+int Screen::GetCurrentValue() {
+	return std::stod(std::string(Display->GetValue().mb_str()));
+}
+
 void Screen::OnButtonClick(wxCommandEvent& evt) {
+	entryMode = true;
 	int id = evt.GetId();
 	Display->AppendText(std::to_string(id));
 	Display->GetValue().ToInt(&id);
@@ -69,42 +75,53 @@ void Screen::OnButtonClick(wxCommandEvent& evt) {
 }
 
 void Screen::SignButtonClick(wxCommandEvent& evt) {
-	
 	int id = evt.GetId();
 	switch (id) {
 	case ID_ADD_BUTTON: {
 		Display->AppendText("+");
 		processor->SetOperator(id);
-		int x = Display->GetValue().ToInt(&id);
-		int y = Display->GetValue().ToInt(&id);
-		AddCommand Add(&value, x, y);
+		if (entryMode) {
+			x = GetCurrentValue();
+			entryMode = false;
+		}
+		Display->Clear();
+		AddCommand Add(processor, x, y);
 		command.push_back(&Add);
 		break;
 	}
 	case ID_SUB_BUTTON: {
 		Display->AppendText("-");
 		processor->SetOperator(id);
-		int x = Display->GetValue().ToInt(&id);
-		int y = Display->GetValue().ToInt(&id);
-		SubCommand Sub(&value, x, y);
+		if (entryMode) {
+			x = GetCurrentValue();
+			entryMode = false;
+		}
+		Display->Clear();
+		SubCommand Sub(processor, x, y);
 		command.push_back(&Sub);
 		break;
 	}
 	case ID_MUL_BUTTON: {
 		Display->AppendText("*");
 		processor->SetOperator(id);
-		int x = Display->GetValue().ToInt(&id);
-		int y = Display->GetValue().ToInt(&id);
-		MultCommand Mult(&value, x, y);
+		if (entryMode) {
+			x = GetCurrentValue();
+			entryMode = false;
+		}
+		Display->Clear();
+		MultCommand Mult(processor, x, y);
 		command.push_back(&Mult);
 		break;
 	}
 	case ID_DIV_BUTTON: {
 		Display->AppendText("/");
 		processor->SetOperator(id);
-		int x = Display->GetValue().ToInt(&id);
-		int y = Display->GetValue().ToInt(&id);
-		DivCommand Div(&value, x, y);
+		if (entryMode) {
+			x = GetCurrentValue();
+			entryMode = false;
+		}
+		Display->Clear();
+		DivCommand Div(processor, x, y);
 		command.push_back(&Div);
 		break;
 	}
@@ -114,21 +131,23 @@ void Screen::SignButtonClick(wxCommandEvent& evt) {
 		DisplayUpdate();
 		break;
 	}
-		
 	case ID_SIGN_BUTTON: {
 		positive = !positive;
 		entryMode = true;
 		DisplayUpdate();
 		break;
-	}
-		
+	}	
 	case ID_EQUAL_BUTTON: {
 		if (entryMode) {
+			y = GetCurrentValue();
 			entryMode = false;
+			processor->SetValue(x, y);
 		}
-		for (int i = 0; i < command.size(); i++) {
+		Display->SetValue(processor->GetEquals());
+		x = GetCurrentValue();
+		/*for (int i = 0; i < command.size(); i++) {
 			command[i]->Execute();
-		}
+		}*/
 		break;
 	}
 	case ID_CLR_BUTTON: {
@@ -152,10 +171,12 @@ void Screen::SignButtonClick(wxCommandEvent& evt) {
 	case ID_MOD_BUTTON: {
 		Display->AppendText("MOD");
 		processor->SetOperator(id);
-		processor->SetOperator(id);
-		int x = Display->GetValue().ToInt(&id);
-		int y = Display->GetValue().ToInt(&id);
-		MultCommand Mod(&value, x, y);
+		if (entryMode) {
+			x = GetCurrentValue();
+			entryMode = false;
+		}
+		Display->Clear();
+		MultCommand Mod(processor, x, y);
 		command.push_back(&Mod);
 		break;
 	}

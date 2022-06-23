@@ -157,7 +157,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ButtonFactory.cpp" />
-    <ClCompile Include="Calc.cpp" />
     <ClCompile Include="CalculatorProcessor.cpp" />
     <ClCompile Include="IBaseCommand.cpp" />
     <ClCompile Include="Main.cpp" />

@@ -32,6 +32,7 @@ public:
 
 	void OnButtonClick(wxCommandEvent& evt);
 	void SignButtonClick(wxCommandEvent& evt);
+	int GetCurrentValue();
 	void DisplayUpdate();
 	void Clear();
 	wxDECLARE_EVENT_TABLE();

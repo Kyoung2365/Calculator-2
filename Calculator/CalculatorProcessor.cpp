@@ -76,7 +76,7 @@ std::string CalculatorProcessor::GetDecimal() {
 }
 
 std::string CalculatorProcessor::GetEquals() {
-	int result = 0;
+	int result = -1;
 	int sign = Operator;
 	sign = sign - OP_OFFSET;
 	switch (sign) {
@@ -92,7 +92,7 @@ std::string CalculatorProcessor::GetEquals() {
 	case 3:
 		result = GetDiv();
 		break;
-	case 4:
+	case 9:
 		result = GetMod();
 		break;
 	}	
