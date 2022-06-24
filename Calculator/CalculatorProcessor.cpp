@@ -14,12 +14,9 @@ CalculatorProcessor* CalculatorProcessor::GetInstance() {
 void CalculatorProcessor::SetBaseNumber(int _number) {
 	baseNumber = _number;
 }
-
-void CalculatorProcessor::SetValue(int x, int y) {
-	_valueX = x;
-	_valueY = y;
+void CalculatorProcessor::SetBaseNumber2(int _number2) {
+	baseNumber2 = _number2;
 }
-
 void CalculatorProcessor::SetOperator(int _operator) {
 	Operator = _operator;
 }
@@ -75,46 +72,46 @@ std::string CalculatorProcessor::GetDecimal() {
 	return std::to_string(baseNumber);
 }
 
-std::string CalculatorProcessor::GetEquals() {
+std::string CalculatorProcessor::GetEquals(int x, int y) {
 	int result = -1;
 	int sign = Operator;
 	sign = sign - OP_OFFSET;
 	switch (sign) {
 	case 0:
-		result = GetAdd();
+		result = GetAdd(x, y);
 		break;
 	case 1:
-		result = GetSub();
+		result = GetSub(x, y);
 		break;
 	case 2:
-		result = GetMult();
+		result = GetMult(x, y);
 		break;
 	case 3:
-		result = GetDiv();
+		result = GetDiv(x, y);
 		break;
 	case 9:
-		result = GetMod();
+		result = GetMod(x, y);
 		break;
 	}	
 	return std::to_string(result);
 }
 
-int CalculatorProcessor::GetAdd() {
-	return _valueX + _valueY;
+int CalculatorProcessor::GetAdd(int x, int y) {
+	return x + y;
 }
 
-int CalculatorProcessor::GetSub() {
-	return _valueX - _valueY;
+int CalculatorProcessor::GetSub(int x, int y) {
+	return x - y;
 }
 
-int CalculatorProcessor::GetMult() {
-	return _valueX * _valueY;
+int CalculatorProcessor::GetMult(int x, int y) {
+	return x * y;
 }
 
-int CalculatorProcessor::GetDiv() {
-	return _valueX / _valueY;
+int CalculatorProcessor::GetDiv(int x, int y) {
+	return x / y;
 }
 
-int CalculatorProcessor::GetMod() {
-	return _valueX % _valueY;
+int CalculatorProcessor::GetMod(int x, int y) {
+	return x % y;
 }

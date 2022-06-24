@@ -10,14 +10,13 @@ class CalculatorProcessor
 private:
 	static CalculatorProcessor* _calcProcessor;
 	int Operator;
-	int _valueX = 0;
-	int _valueY = 0;
 	int baseNumber = 0;
+	int baseNumber2 = 0;
 public:
 	CalculatorProcessor() {}
 	static CalculatorProcessor* GetInstance();
 	void SetBaseNumber(int _number);
-	void SetValue(int x, int y);
+	void SetBaseNumber2(int _number2);
 	void SetOperator(int _operator);
 
 	CalculatorProcessor(CalculatorProcessor& other) = delete;
@@ -28,13 +27,13 @@ public:
 	std::string GetDecimal();
 	
 
-	int GetAdd();
-	int GetSub();
-	int GetMult();
-	int GetDiv();
-	int GetMod();
+	int GetAdd(int x, int y);
+	int GetSub(int x, int y);
+	int GetMult(int x, int y);
+	int GetDiv(int x, int y);
+	int GetMod(int x, int y);
 
-	std::string GetEquals();
+	std::string GetEquals(int x, int y);
 };
 
 

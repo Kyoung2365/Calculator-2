@@ -32,9 +32,9 @@ public:
 
 	void OnButtonClick(wxCommandEvent& evt);
 	void SignButtonClick(wxCommandEvent& evt);
-	int GetCurrentValue();
 	void DisplayUpdate();
 	void Clear();
+	int GetCurrentValue();
 	wxDECLARE_EVENT_TABLE();
 };
 

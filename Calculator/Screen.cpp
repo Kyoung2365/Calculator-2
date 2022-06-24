@@ -85,7 +85,7 @@ void Screen::SignButtonClick(wxCommandEvent& evt) {
 			entryMode = false;
 		}
 		Display->Clear();
-		AddCommand Add(processor, x, y);
+		AddCommand Add(processor, id, x, y);
 		command.push_back(&Add);
 		break;
 	}
@@ -97,7 +97,7 @@ void Screen::SignButtonClick(wxCommandEvent& evt) {
 			entryMode = false;
 		}
 		Display->Clear();
-		SubCommand Sub(processor, x, y);
+		SubCommand Sub(processor, id, x, y);
 		command.push_back(&Sub);
 		break;
 	}
@@ -109,7 +109,7 @@ void Screen::SignButtonClick(wxCommandEvent& evt) {
 			entryMode = false;
 		}
 		Display->Clear();
-		MultCommand Mult(processor, x, y);
+		MultCommand Mult(processor, id, x, y);
 		command.push_back(&Mult);
 		break;
 	}
@@ -121,7 +121,7 @@ void Screen::SignButtonClick(wxCommandEvent& evt) {
 			entryMode = false;
 		}
 		Display->Clear();
-		DivCommand Div(processor, x, y);
+		DivCommand Div(processor, id, x, y);
 		command.push_back(&Div);
 		break;
 	}
@@ -141,13 +141,13 @@ void Screen::SignButtonClick(wxCommandEvent& evt) {
 		if (entryMode) {
 			y = GetCurrentValue();
 			entryMode = false;
-			processor->SetValue(x, y);
 		}
-		Display->SetValue(processor->GetEquals());
-		x = GetCurrentValue();
+		Display->SetValue(processor->GetEquals(x, y));
 		/*for (int i = 0; i < command.size(); i++) {
 			command[i]->Execute();
-		}*/
+		}
+		command.clear();*/
+		x = GetCurrentValue();
 		break;
 	}
 	case ID_CLR_BUTTON: {
@@ -172,11 +172,10 @@ void Screen::SignButtonClick(wxCommandEvent& evt) {
 		Display->AppendText("MOD");
 		processor->SetOperator(id);
 		if (entryMode) {
-			x = GetCurrentValue();
 			entryMode = false;
 		}
 		Display->Clear();
-		MultCommand Mod(processor, x, y);
+		MultCommand Mod(processor, id, x, y);
 		command.push_back(&Mod);
 		break;
 	}
