@@ -1,6 +1,5 @@
 #include "ButtonFactory.h"
 
-
  wxButton* ButtonFactory::CreateNumButton(Screen* screen, int num, wxSize& size){
 	 return new wxButton(screen, num, std::to_string(num), wxDefaultPosition, size);
  }

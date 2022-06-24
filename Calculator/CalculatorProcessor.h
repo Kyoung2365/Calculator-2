@@ -27,11 +27,11 @@ public:
 	std::string GetDecimal();
 	
 
-	int GetAdd(int x, int y);
-	int GetSub(int x, int y);
-	int GetMult(int x, int y);
-	int GetDiv(int x, int y);
-	int GetMod(int x, int y);
+	static int GetAdd(int x, int y);
+	static int GetSub(int x, int y);
+	static int GetMult(int x, int y);
+	static int GetDiv(int x, int y);
+	static int GetMod(int x, int y);
 
 	std::string GetEquals(int x, int y);
 };

@@ -172,6 +172,7 @@ void Screen::SignButtonClick(wxCommandEvent& evt) {
 		Display->AppendText("MOD");
 		processor->SetOperator(id);
 		if (entryMode) {
+			x = GetCurrentValue();
 			entryMode = false;
 		}
 		Display->Clear();
