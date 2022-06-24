@@ -13,97 +13,97 @@ namespace ButtonFactoryTests
 	public:
 		TEST_METHOD(ReturnsAdd) {
 			ButtonFactory button;
-			Button AddButton;
+			wxButton* AddButton;
 			Screen* screen{};
 			wxSize size;
-			button.CreateAddButton(screen, size);
-			Assert::AreEqual(ID_ADD_BUTTON, AddButton);
+			AddButton = button.CreateAddButton(screen, size);
+			Assert::IsTrue(ID_ADD_BUTTON);
 		}
 
-		TEST_METHOD(ReturnZero) {
+		TEST_METHOD(ReturnOne) {
 			ButtonFactory button;
-			Button ZeroButton;
+			wxButton* OneButton;
 			Screen* screen{};
-			int num = 0;
+			int num = 1;
 			wxSize size;
-			button.CreateNumButton(screen, num, size);
-			Assert::AreEqual(ID_0_BUTTON, ZeroButton);
+			OneButton = button.CreateNumButton(screen, num, size);
+			Assert::IsTrue(ID_1_BUTTON);
 		}
 
 		TEST_METHOD(ReturnsSub) {
 			ButtonFactory button;
-			Button SubButton;
+			wxButton* SubButton;
 			Screen* screen{};
 			wxSize size;
-			button.CreateSubButton(screen, size);
-			Assert::AreEqual(ID_SUB_BUTTON, SubButton);
+			SubButton = button.CreateSubButton(screen, size);
+			Assert::IsTrue(ID_SUB_BUTTON);
 		}
 
 		TEST_METHOD(ReturnTwo) {
 			ButtonFactory button;
-			Button TwoButton;
+			wxButton* TwoButton;
 			Screen* screen{};
 			int num = 2;
 			wxSize size;
-			button.CreateNumButton(screen, num, size);
-			Assert::AreEqual(ID_2_BUTTON, TwoButton);
+			TwoButton = button.CreateNumButton(screen, num, size);
+			Assert::IsTrue(ID_2_BUTTON);
 		}
 
 		TEST_METHOD(ReturnsHex) {
 			ButtonFactory button;
-			Button HexButton;
+			wxButton* HexButton;
 			Screen* screen{};
 			wxSize size;
-			button.CreateHexButton(screen, size);
-			Assert::AreEqual(ID_HEX_BUTTON, HexButton);
+			HexButton = button.CreateHexButton(screen, size);
+			Assert::IsTrue(ID_HEX_BUTTON);
 		}
 
 		TEST_METHOD(ReturnFive) {
 			ButtonFactory button;
-			Button FiveButton;
+			wxButton* FiveButton;
 			Screen* screen{};
 			int num = 5;
 			wxSize size;
-			button.CreateNumButton(screen, num, size);
-			Assert::AreEqual(ID_5_BUTTON, FiveButton);
+			FiveButton = button.CreateNumButton(screen, num, size);
+			Assert::IsTrue(ID_5_BUTTON);
 		}
 
 		TEST_METHOD(ReturnsDecimal) {
 			ButtonFactory button;
-			Button DecimalButton;
+			wxButton* DecimalButton;
 			Screen* screen{};
 			wxSize size;
 			button.CreateAddButton(screen, size);
-			Assert::AreEqual(ID_DECI_BUTTON, DecimalButton);
+			Assert::IsTrue(ID_DECI_BUTTON);
 		}
 
 		TEST_METHOD(ReturnEight) {
 			ButtonFactory button;
-			Button EightButton;
+			wxButton* EightButton;
 			Screen* screen{};
 			int num = 8;
 			wxSize size;
-			button.CreateNumButton(screen, num, size);
-			Assert::AreEqual(ID_8_BUTTON, EightButton);
+			EightButton = button.CreateNumButton(screen, num, size);
+			Assert::IsTrue(ID_8_BUTTON);
 		}
 
 		TEST_METHOD(ReturnsClear) {
 			ButtonFactory button;
-			Button ClearButton;
+			wxButton* ClearButton;
 			Screen* screen{};
 			wxSize size;
-			button.CreateClrButton(screen, size);
-			Assert::AreEqual(ID_CLR_BUTTON, ClearButton);
+			ClearButton = button.CreateClrButton(screen, size);
+			Assert::IsTrue(ID_CLR_BUTTON);
 		}
 
 		TEST_METHOD(ReturnNine) {
 			ButtonFactory button;
-			Button NineButton;
+			wxButton* NineButton;
 			Screen* screen{};
 			int num = 9;
 			wxSize size;
-			button.CreateNumButton(screen, num, size);
-			Assert::AreEqual(ID_9_BUTTON, NineButton);
+			NineButton = button.CreateNumButton(screen, num, size);
+			Assert::IsTrue(ID_9_BUTTON);
 		}
 	};
 }
