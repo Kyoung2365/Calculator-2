@@ -1,6 +1,10 @@
 #include "Screen.h"
 #include "ButtonFactory.h"
 #include "CalculatorProcessor.h"
+#include "AddCommand.h"
+#include "SubCommand.h"
+#include "MultCommand.h"
+#include "DivCommand.h"
 
 wxBEGIN_EVENT_TABLE(Screen, wxFrame)
 EVT_BUTTON(ID_0_BUTTON, Screen::OnButtonClick)
@@ -28,58 +32,153 @@ EVT_BUTTON(ID_MOD_BUTTON, Screen::SignButtonClick)
 wxEND_EVENT_TABLE();
 
 CalculatorProcessor* processor = CalculatorProcessor::GetInstance();
+std::vector<IBaseCommand*> command;
+
+int x = 0, y = 0;
+
+void Screen::DisplayUpdate() {
+	std::string numStr("");
+	if (!positive) {
+		numStr += "-";
+	}
+
+	numStr += preDecimal;
+	if (decimal) {
+		numStr += "." + postDecimal;
+	}
+	Display->SetValue(numStr);
+}
+
+void Screen::Clear() {
+	preDecimal.assign("");
+	postDecimal.assign("");
+	decimal = false;
+	positive = true;
+}
+
+int Screen::GetCurrentValue() {
+	return std::stod(std::string(Display->GetValue().mb_str()));
+}
 
 void Screen::OnButtonClick(wxCommandEvent& evt) {
+	entryMode = true;
 	int id = evt.GetId();
 	Display->AppendText(std::to_string(id));
 	Display->GetValue().ToInt(&id);
+	if (!decimal) {
+		preDecimal += std::to_string(id);
+	}
+	else {
+		postDecimal += std::to_string(id);
+	}
 	processor->SetBaseNumber(id);
 }
 
 void Screen::SignButtonClick(wxCommandEvent& evt) {
 	int id = evt.GetId();
 	switch (id) {
-	case ID_ADD_BUTTON:
+	case ID_ADD_BUTTON: {
 		Display->AppendText("+");
 		processor->SetOperator(id);
+		if (entryMode) {
+			x = GetCurrentValue();
+			entryMode = false;
+		}
+		Display->Clear();
+		AddCommand Add(processor, id, x, y);
+		command.push_back(&Add);
 		break;
-	case ID_SUB_BUTTON:
+	}
+	case ID_SUB_BUTTON: {
 		Display->AppendText("-");
 		processor->SetOperator(id);
+		if (entryMode) {
+			x = GetCurrentValue();
+			entryMode = false;
+		}
+		Display->Clear();
+		SubCommand Sub(processor, id, x, y);
+		command.push_back(&Sub);
 		break;
-	case ID_MUL_BUTTON:
+	}
+	case ID_MUL_BUTTON: {
 		Display->AppendText("*");
 		processor->SetOperator(id);
+		if (entryMode) {
+			x = GetCurrentValue();
+			entryMode = false;
+		}
+		Display->Clear();
+		MultCommand Mult(processor, id, x, y);
+		command.push_back(&Mult);
 		break;
-	case ID_DIV_BUTTON:
+	}
+	case ID_DIV_BUTTON: {
 		Display->AppendText("/");
 		processor->SetOperator(id);
-		break;
-	case ID_DECI_BUTTON:
-		Display->AppendText(".");
-		break;
-	case ID_SIGN_BUTTON:
-		Display->AppendText("-");
-		break;
-	case ID_EQUAL_BUTTON:
-		Display->SetValue(processor->GetEquals());
-		break;
-	case ID_CLR_BUTTON:
+		if (entryMode) {
+			x = GetCurrentValue();
+			entryMode = false;
+		}
 		Display->Clear();
+		DivCommand Div(processor, id, x, y);
+		command.push_back(&Div);
 		break;
-	case ID_HEX_BUTTON:
+	}
+	case ID_DECI_BUTTON: {
+		decimal = true;
+		entryMode = true;
+		DisplayUpdate();
+		break;
+	}
+	case ID_SIGN_BUTTON: {
+		positive = !positive;
+		entryMode = true;
+		DisplayUpdate();
+		break;
+	}	
+	case ID_EQUAL_BUTTON: {
+		if (entryMode) {
+			y = GetCurrentValue();
+			entryMode = false;
+		}
+		Display->SetValue(processor->GetEquals(x, y));
+		/*for (int i = 0; i < command.size(); i++) {
+			command[i]->Execute();
+		}
+		command.clear();*/
+		x = GetCurrentValue();
+		break;
+	}
+	case ID_CLR_BUTTON: {
+		entryMode = true;
+		Clear();
+		DisplayUpdate();
+		break;
+	}
+	case ID_HEX_BUTTON: {
 		Display->SetValue(processor->GetHexdecimal());
 		break;
-	case ID_BIN_BUTTON:
+	}
+	case ID_BIN_BUTTON: {
 		Display->SetValue(processor->GetBinary());
 		break;
-	case ID_DEC_BUTTON:
+	}
+	case ID_DEC_BUTTON: {
 		Display->SetValue(processor->GetDecimal());
 		break;
-	case ID_MOD_BUTTON:
+	}
+	case ID_MOD_BUTTON: {
 		Display->AppendText("MOD");
 		processor->SetOperator(id);
+		if (entryMode) {
+			entryMode = false;
+		}
+		Display->Clear();
+		MultCommand Mod(processor, id, x, y);
+		command.push_back(&Mod);
 		break;
+	}
 	}
 }
 
@@ -99,7 +198,6 @@ Screen::Screen() : wxFrame(nullptr, wxID_ANY, "Calculator", wxPoint(100, 100), w
 	numButtons.resize(10);
 
 	ButtonFactory Button;
-
 	for (int num = 0; num < 10; num++) {
 		numButtons[num] = Button.CreateNumButton(this, num, buttonSize);
 	}
