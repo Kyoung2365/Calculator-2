@@ -19,6 +19,9 @@ private:
 	wxButton* divButton;
 	wxButton* clrButton;
 	wxButton* equalsButton;
+	wxButton* sinButton;
+	wxButton* cosButton;
+	wxButton* tanButton;
 
 	std::string preDecimal;
 	std::string postDecimal;
