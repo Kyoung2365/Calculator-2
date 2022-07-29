@@ -51,3 +51,15 @@
  wxButton* ButtonFactory::CreateModButton(Screen* screen, wxSize& size) {
 	 return new wxButton(screen, ID_MOD_BUTTON, "MOD", wxDefaultPosition, size);
  }
+
+ wxButton* ButtonFactory::CreateSinButton(Screen* screen, wxSize& size) {
+	 return new wxButton(screen, ID_SIN_BUTTON, "SIN", wxDefaultPosition, size);
+ }
+
+ wxButton* ButtonFactory::CreateCosButton(Screen* screen, wxSize& size) {
+	 return new wxButton(screen, ID_COS_BUTTON, "COS", wxDefaultPosition, size);
+ }
+
+ wxButton* ButtonFactory::CreateTanButton(Screen* screen, wxSize& size) {
+	 return new wxButton(screen, ID_TAN_BUTTON, "TAN", wxDefaultPosition, size);
+ }

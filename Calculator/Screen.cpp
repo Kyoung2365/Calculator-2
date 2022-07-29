@@ -29,6 +29,9 @@ EVT_BUTTON(ID_HEX_BUTTON, Screen::SignButtonClick)
 EVT_BUTTON(ID_BIN_BUTTON, Screen::SignButtonClick)
 EVT_BUTTON(ID_DEC_BUTTON, Screen::SignButtonClick)
 EVT_BUTTON(ID_MOD_BUTTON, Screen::SignButtonClick)
+EVT_BUTTON(ID_SIN_BUTTON, Screen::SignButtonClick)
+EVT_BUTTON(ID_COS_BUTTON, Screen::SignButtonClick)
+EVT_BUTTON(ID_TAN_BUTTON, Screen::SignButtonClick)
 wxEND_EVENT_TABLE();
 
 CalculatorProcessor* processor = CalculatorProcessor::GetInstance();
@@ -180,6 +183,18 @@ void Screen::SignButtonClick(wxCommandEvent& evt) {
 		command.push_back(&Mod);
 		break;
 	}
+	case ID_SIN_BUTTON: {
+		Display->SetValue(processor->GetSin());
+		break;
+	}
+	case ID_COS_BUTTON: {
+		Display->SetValue(processor->GetCos());
+		break;
+	}
+	case ID_TAN_BUTTON: {
+		Display->SetValue(processor->GetTan());
+		break;
+	}
 	}
 }
 
@@ -215,6 +230,15 @@ Screen::Screen() : wxFrame(nullptr, wxID_ANY, "Calculator", wxPoint(100, 100), w
 	binButton = Button.CreateBinButton(this, buttonSize);
 	decButton = Button.CreateDecButton(this, buttonSize);
 	modButton = Button.CreateModButton(this, buttonSize);
+	sinButton = Button.CreateSinButton(this, buttonSize);
+	cosButton = Button.CreateCosButton(this, buttonSize);
+	tanButton = Button.CreateTanButton(this, buttonSize);
+
+	
+	grid->Add(sinButton, 1, wxEXPAND, 0);
+	grid->Add(cosButton, 1, wxEXPAND, 0);
+	grid->Add(tanButton, 1, wxEXPAND, 0);
+	grid->AddStretchSpacer();
 
 	grid->Add(hexButton, 1, wxEXPAND, 0);
 	grid->Add(binButton, 1, wxEXPAND, 0);

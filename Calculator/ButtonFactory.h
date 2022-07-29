@@ -28,7 +28,10 @@ enum Button {
 	ID_HEX_BUTTON,
 	ID_BIN_BUTTON,
 	ID_DEC_BUTTON,
-	ID_MOD_BUTTON
+	ID_MOD_BUTTON,
+	ID_SIN_BUTTON,
+	ID_COS_BUTTON,
+	ID_TAN_BUTTON
 };
 
 class ButtonFactory : public wxWindow
@@ -47,6 +50,9 @@ public:
 	wxButton* CreateBinButton(Screen* screen, wxSize& size);
 	wxButton* CreateDecButton(Screen* screen, wxSize& size);
 	wxButton* CreateModButton(Screen* screen, wxSize& size);
+	wxButton* CreateSinButton(Screen* screen, wxSize& size);
+	wxButton* CreateCosButton(Screen* screen, wxSize& size);
+	wxButton* CreateTanButton(Screen* screen, wxSize& size);
 };
 
 
