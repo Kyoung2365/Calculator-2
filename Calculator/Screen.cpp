@@ -183,6 +183,18 @@ void Screen::SignButtonClick(wxCommandEvent& evt) {
 		command.push_back(&Mod);
 		break;
 	}
+	case ID_SIN_BUTTON: {
+		Display->SetValue(processor->GetSin());
+		break;
+	}
+	case ID_COS_BUTTON: {
+		Display->SetValue(processor->GetCos());
+		break;
+	}
+	case ID_TAN_BUTTON: {
+		Display->SetValue(processor->GetTan());
+		break;
+	}
 	}
 }
 

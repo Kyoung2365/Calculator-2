@@ -25,6 +25,10 @@ public:
 	std::string GetHexdecimal();
 	std::string GetBinary();
 	std::string GetDecimal();
+
+	std::string GetSin();
+	std::string GetCos();
+	std::string GetTan();
 	
 
 	static int GetAdd(int x, int y);

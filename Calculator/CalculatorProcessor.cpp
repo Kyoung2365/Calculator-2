@@ -2,6 +2,8 @@
 #include "CalculatorProcessor.h"
 #include <string>
 
+#define PI 3.14159265
+
 CalculatorProcessor* CalculatorProcessor::_calcProcessor = nullptr;
 
 CalculatorProcessor* CalculatorProcessor::GetInstance() {
@@ -70,6 +72,21 @@ std::string CalculatorProcessor::GetBinary() {
 
 std::string CalculatorProcessor::GetDecimal() {
 	return std::to_string(baseNumber);
+}
+
+std::string CalculatorProcessor::GetSin() {
+	std::string result = "";
+	return result = std::to_string(sin(baseNumber * PI / 180));
+}
+
+std::string CalculatorProcessor::GetCos() {
+	std::string result = "";
+	return result = std::to_string(cos(baseNumber * PI / 180));
+}
+
+std::string CalculatorProcessor::GetTan() {
+	std::string result = "";
+	return result = std::to_string(tan(baseNumber * PI / 180));
 }
 
 std::string CalculatorProcessor::GetEquals(int x, int y) {
